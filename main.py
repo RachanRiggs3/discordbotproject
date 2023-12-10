@@ -1,6 +1,7 @@
 import discord
 import settings
 from discord.ext import commands
+import requests
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
@@ -25,4 +26,10 @@ async def avatar(ctx, mention=None):
         useravatarurl = user.avatar
         await ctx.send(useravatarurl)
 
+@bot.command()
+async def qrcode(ctx, link=None):
+    if link == None:
+        await ctx.send("Please add a link")
+    else:
+        await ctx.send(f"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={link}")
 bot.run(settings.DISCORD_TOKEN)
