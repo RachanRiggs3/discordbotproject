@@ -11,7 +11,8 @@ async def on_ready():
     game = discord.Game(name="nothing :(")
     await bot.change_presence(activity=game)
 
-@bot.command
+@bot.command()
 async def pingme(ctx):
-    bot.on_message
+    await ctx.send(f"Pong {ctx.mention}")
+
 bot.run(settings.DISCORD_TOKEN)
