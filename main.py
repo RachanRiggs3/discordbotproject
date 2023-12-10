@@ -31,5 +31,18 @@ async def qrcode(ctx, link=None):
     if link == None:
         await ctx.send("Please add a link")
     else:
-        await ctx.send(f"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={link}")
+        embed = discord.Embed(
+            title="QR Code",
+            description="QR Code is generated",
+            color=discord.Colour.blue()
+        )
+        embed.set_image(url=f'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={link}')
+        await ctx.send(embed=embed)
+
+@bot.command()
+async def quotes(ctx):
+    response = requests.get("https://zenquotes.io/api/random/")
+    
+
+
 bot.run(settings.DISCORD_TOKEN)
