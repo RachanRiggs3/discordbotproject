@@ -14,8 +14,8 @@ async def on_ready():
     await bot.change_presence(activity=game)
 
 @bot.command()
-async def pingme(ctx):
-    await ctx.send(f"Pong {ctx.author.mention}")
+async def ping(ctx):
+    await ctx.send(f"The Latency Of the bot is {bot.latency}")
 
 @bot.command()
 async def avatar(ctx, mention=None):
