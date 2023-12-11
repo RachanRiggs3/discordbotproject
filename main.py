@@ -2,6 +2,7 @@ import discord
 import settings
 from discord.ext import commands
 import requests
+import json
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
@@ -54,7 +55,14 @@ async def qrcode(ctx, link=None):
 @bot.command()
 async def quotes(ctx):
     response = requests.get("https://zenquotes.io/api/random/")
-    
-
+    response_json = json.loads(response.text) #changes the string json to list json
+    response_dict = response_json[0] #acccessing the dict from the list
+    response_quote = response_dict['q']
+    response_author = response_dict['a']
+    embed = discord.Embed(
+        description=response_quote
+        )
+    embed.set_footer(text=f"By {response_author}")
+    await ctx.send(embed=embed)
 
 bot.run(settings.DISCORD_TOKEN)
