@@ -18,13 +18,25 @@ async def pingme(ctx):
 
 @bot.command()
 async def avatar(ctx, mention=None):
-    if not mention: 
-        useravatarurl = ctx.author.avatar
-        await ctx.send(useravatarurl)
+    if mention==None: 
+        embed = discord.Embed(
+            title=f"{ctx.author}'s Avatar",
+            description="below is the avatar",
+            color=discord.Color.blurple()
+        )
+        avatar_link = ctx.author.avatar.url
+        embed.set_image(url=avatar_link)
+        await ctx.send(embed=embed)
     else:
-        user = ctx.message.mentions[0] 
-        useravatarurl = user.avatar
-        await ctx.send(useravatarurl)
+        user = ctx.message.mentions[0]
+        embed = discord.Embed(
+            title=f"{user}'s Avatar",
+            description="below is the avatar",
+            color=discord.Color.blurple()
+        )
+        useravatarurl = user.avatar.url
+        embed.set_image(url=useravatarurl)
+        await ctx.send(embed=embed)
 
 @bot.command()
 async def qrcode(ctx, link=None):
