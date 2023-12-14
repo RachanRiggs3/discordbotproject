@@ -41,7 +41,7 @@ def main():
             embed.set_image(url=useravatarurl)
             await ctx.send(embed=embed)
 
-    @bot.command()
+    @bot.command(aliases=["qr",])
     async def qrcode(ctx, link=None):
         if link == None:
             await ctx.send("Please add a link")
@@ -54,7 +54,7 @@ def main():
             embed.set_image(url=f'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={link}')
             await ctx.send(embed=embed)
 
-    @bot.command()
+    @bot.command(aliases=["qs",])
     async def quotes(ctx):
         response = requests.get("https://zenquotes.io/api/random/")
         response_json = json.loads(response.text) #changes the string json to list json
@@ -62,7 +62,7 @@ def main():
         response_quote = response_dict['q']
         response_author = response_dict['a']
         embed = discord.Embed(
-            description=response_quote
+            title=response_quote
             )
         embed.set_footer(text=f"By {response_author}")
         await ctx.send(embed=embed)
