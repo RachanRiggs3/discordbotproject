@@ -74,6 +74,7 @@ def main():
             !qrcode <link> : this generates a qr image
             !quotes : this generates a random quote'''
         )
+        embed.set_thumbnail(url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
     bot.run(settings.DISCORD_TOKEN)
 
