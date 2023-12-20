@@ -1,6 +1,7 @@
 import discord
 import settings
 from discord.ext import commands
+import random
 import requests
 import json
 
@@ -12,7 +13,7 @@ def main():
     @bot.event
     async def on_ready():
         print(f"Ready as {bot.user}")
-        game = discord.Game(name="nothing :(")
+        game = discord.Game(name="with my toys :)")
         await bot.change_presence(activity=game)
 
     @bot.command()
@@ -75,6 +76,18 @@ def main():
             !quotes : this generates a random quote'''
         )
         embed.set_thumbnail(url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+    @bot.command()
+    async def catfact(ctx):
+        catsfact_request = requests.get("https://catfact.ninja/fact")
+        catfact_dict = json.loads(catsfact_request.text)
+        catfact = catfact_dict["fact"]
+        embed = discord.Embed(
+            title="Cat facts by some free api lol",
+            description=catfact,
+            color=discord.Colour.blurple()
+        )
+        embed.set_footer(text=f"{ctx.author}")
         await ctx.send(embed=embed)
     bot.run(settings.DISCORD_TOKEN)
 
