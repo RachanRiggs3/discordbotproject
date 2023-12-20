@@ -66,7 +66,15 @@ def main():
             )
         embed.set_footer(text=f"By {response_author}")
         await ctx.send(embed=embed)
-
+    @bot.command()
+    async def jhelp(ctx):
+        embed = discord.Embed(
+            title="Help Menu",
+            description='''This is a help menu
+            !qrcode <link> : this generates a qr image
+            !quotes : this generates a random quote'''
+        )
+        await ctx.send(embed=embed)
     bot.run(settings.DISCORD_TOKEN)
 
 if __name__ == '__main__':
