@@ -73,7 +73,8 @@ def main():
             title="Help Menu",
             description='''This is a help menu
             !qrcode <link> : this generates a qr image
-            !quotes : this generates a random quote'''
+            !quotes : this generates a random quote
+            !catfact : this generates a random cat fact'''
         )
         embed.set_thumbnail(url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
@@ -89,6 +90,9 @@ def main():
         )
         embed.set_footer(text=f"{ctx.author}")
         await ctx.send(embed=embed)
+    @bot.command()
+    async def ban(ctx, member : discord.Member,* , reason=None):
+        await member.ban(reason=reason)
     bot.run(settings.DISCORD_TOKEN)
 
 if __name__ == '__main__':
