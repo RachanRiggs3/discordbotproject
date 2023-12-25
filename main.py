@@ -93,7 +93,7 @@ def main():
         await ctx.send(embed=embed)
     @bot.command()
     async def ban(ctx, member : discord.Member,*, reason=None):
-        wait member.ban(reason=reason)
+        await member.ban(reason=reason)
     bot.run(settings.DISCORD_TOKEN)
 
 if __name__ == '__main__':
