@@ -1,9 +1,7 @@
 import discord
 import settings
 from discord.ext import commands
-import random
-import requests
-import json
+import os
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=["!", "."], intents=intents)
@@ -16,84 +14,12 @@ def main():
         game = discord.Game(name="with my toys :)")
         await bot.change_presence(activity=game)
 
-    @bot.command()
-    async def ping(ctx):
-        await ctx.send(f"The Latency Of the bot is {bot.latency}")
+    @bot.event
+    async def on_ready():
+        for files in os.listdir("./commands"):
+            if files.endswith(".py"):
+                await bot.load_extension(f"commands.{files[:-3]}")
 
-    @bot.command()
-    async def avatar(ctx, mention=None):
-        if mention==None: 
-            embed = discord.Embed(
-                title=f"{ctx.author}'s Avatar",
-                description="below is the avatar",
-                color=discord.Color.blurple()
-            )
-            avatar_link = ctx.author.avatar.url
-            embed.set_image(url=avatar_link)
-            await ctx.send(embed=embed)
-        else:
-            user = ctx.message.mentions[0]
-            embed = discord.Embed(
-                title=f"{user}'s Avatar",
-                description="below is the avatar",
-                color=discord.Color.blurple()
-            )
-            useravatarurl = user.avatar.url
-            embed.set_image(url=useravatarurl)
-            await ctx.send(embed=embed)
-
-    @bot.command(aliases=["qr",])
-    async def qrcode(ctx, link=None):
-        if link == None:
-            await ctx.send("Please add a link")
-        else:
-            embed = discord.Embed(
-                title="QR Code",
-                description="QR Code is generated",
-                color=discord.Colour.blue()
-            )
-            embed.set_image(url=f'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={link}')
-            await ctx.send(embed=embed)
-
-    @bot.command(aliases=["qs",])
-    async def quotes(ctx):
-        response = requests.get("https://zenquotes.io/api/random/")
-        response_json = json.loads(response.text) #changes the string json to list json
-        response_dict = response_json[0] #acccessing the dict from the list
-        response_quote = response_dict['q']
-        response_author = response_dict['a']
-        embed = discord.Embed(
-            title=response_quote
-            )
-        embed.set_footer(text=f"By {response_author}")
-        await ctx.send(embed=embed)
-    @bot.command()
-    async def jhelp(ctx):
-        embed = discord.Embed(
-            title="Help Menu",
-            description='''This is a help menu
-            !qrcode <link> : this generates a qr image
-            !quotes : this generates a random quote
-            !catfact : this generates a random cat fact
-            !ban <mention> <reason> : bans a user'''
-        )
-        embed.set_thumbnail(url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-    @bot.command()
-    async def catfact(ctx):
-        catsfact_request = requests.get("https://catfact.ninja/fact")
-        catfact_dict = json.loads(catsfact_request.text)
-        catfact = catfact_dict["fact"]
-        embed = discord.Embed(
-            title="Cat facts by some free api lol",
-            description=catfact,
-            color=discord.Colour.blurple()
-        )
-        embed.set_footer(text=f"{ctx.author}")
-        await ctx.send(embed=embed)
-    @bot.command()
-    async def ban(ctx, member : discord.Member,*, reason=None):
-        await member.ban(reason=reason)
     bot.run(settings.DISCORD_TOKEN)
 
 if __name__ == '__main__':
