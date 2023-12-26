@@ -5,7 +5,7 @@ class kick(commands.Cog):
     def __init__(self, bot : commands.Bot):
         self.bot = bot
 
-    @commands.Cog.listener
+    @commands.Cog.listener()
     async def on_command_error(self, ctx,  error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please pass required arguments")
@@ -15,6 +15,7 @@ class kick(commands.Cog):
             await ctx.send("The bot does not have the required permissions to kick the user")
 
     @commands.command()
+    @commands.has_permissions(kick_members = True)
     async def kick(self, ctx, member : discord.Member,reason=None):
         await member.kick(reason=reason)
 
