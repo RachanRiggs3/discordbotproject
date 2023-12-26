@@ -19,6 +19,7 @@ def main():
         for files in os.listdir("./commands"):
             if files.endswith(".py"):
                 await bot.load_extension(f"commands.{files[:-3]}")
+
     asyncio.run(loading_cogs())
 
     bot.run(settings.DISCORD_TOKEN)

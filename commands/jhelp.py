@@ -13,7 +13,9 @@ class jhelp(commands.Cog):
             !qrcode <link> : this generates a qr image
             !quotes : this generates a random quote
             !catfact : this generates a random cat fact
-            !ban <mention> <reason> : bans a user'''
+            !ban <mention> <reason> : bans a user
+            !kick <mention> <reason> : kicks a user
+            !avatar <mention> : this gives avatar'''
         )
         embed.set_thumbnail(url=ctx.author.avatar.url)
         await ctx.send(embed=embed)

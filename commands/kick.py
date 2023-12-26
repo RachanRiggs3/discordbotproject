@@ -1,7 +1,7 @@
-import discord 
+import discord
 from discord.ext import commands
 
-class ban(commands.Cog):
+class kick(commands.Cog):
     def __init__(self, bot : commands.Bot):
         self.bot = bot
 
@@ -12,14 +12,11 @@ class ban(commands.Cog):
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("You don't have the required permissions")
         if isinstance(error, commands.BotMissingPermissions):
-            await ctx.send("The bot does not have the required permissions to ban the user")
+            await ctx.send("The bot does not have the required permissions to kick the user")
 
-    @commands.command(aliases="b")
-    @commands.has_permissions(ban_members = True)
-    async def ban(self, ctx, member : discord.Member, reason=None):
-        await member.ban(reason=reason)
+    @commands.command()
+    async def kick(self, ctx, member : discord.Member,reason=None):
+        await member.kick(reason=reason)
 
-async def setup(bot : commands.Bot=None):
-    await bot.add_cog(ban(bot))
-
-    
+async def setup(bot : commands.Bot):
+    await bot.add_cog(kick(bot))
