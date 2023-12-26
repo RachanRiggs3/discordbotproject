@@ -1,5 +1,6 @@
 import discord
 import settings
+import asyncio
 from discord.ext import commands
 import os
 
@@ -14,11 +15,11 @@ def main():
         game = discord.Game(name="with my toys :)")
         await bot.change_presence(activity=game)
 
-    @bot.event
     async def on_ready():
         for files in os.listdir("./commands"):
             if files.endswith(".py"):
                 await bot.load_extension(f"commands.{files[:-3]}")
+    asyncio.run(on_ready())
 
     bot.run(settings.DISCORD_TOKEN)
 
