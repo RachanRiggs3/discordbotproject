@@ -27,18 +27,21 @@ def main():
     async def load(ctx, filename: str):
         await bot.load_extension(f"commands.{filename}")
         await ctx.send(f"Loaded {filename} command")
+        print(f"Loaded {filename}.py")
     
     @bot.command()
     @commands.is_owner()
     async def unload(ctx, filename: str):
         await bot.unload_extension(f"commands.{filename}")
         await ctx.send(f"Unloaded {filename} command")
+        print(f"Unloaded {filename}.py")
     
     @bot.command()
     @commands.is_owner()
     async def reload(ctx, filename : str):
         await bot.reload_extension(f"commands.{filename}")
         await ctx.send(f"Reloaded {filename} command")
+        print(f"Reloaded {filename}.py")
 
     bot.run(settings.DISCORD_TOKEN)
 
