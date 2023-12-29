@@ -138,6 +138,10 @@ venv.bak/
 #testing related files
 testing.py
 
+#cache from image commands
+two guys command cache.jpg
+wanted command cache.png
+
 # mkdocs documentation
 /site
 

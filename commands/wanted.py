@@ -18,7 +18,7 @@ class wanted(commands.Cog):
         
         pfp = pfp.resize((977, 977)) 
         wanted_image.paste(pfp, (217, 453))
-        wanted_image.save(fp=r"C:\Users\HP\Desktop\discord py project\command images\command image cache\wanted.png")
+        wanted_image.save(fp=r"C:\Users\HP\Desktop\discord py project\command images\command image cache\wanted command cache.png")
         await ctx.send(file=discord.File(fp=r"C:\Users\HP\Desktop\discord py project\command images\command image cache\wanted command cache.png"))
 
         
